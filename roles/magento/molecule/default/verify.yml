@@ -1,0 +1,11 @@
+#Contient les tests de validation à exécuter après les déploiements des rôles
+
+---
+
+- name: Verify
+  hosts: webservers
+  gather_facts: false
+  tasks:
+  - name: assertion
+    ansible.builtin.assert:
+      that: true

@@ -1,0 +1,23 @@
+#liste des hôtes (serveurs) sur lesquels Ansible va exécuter ls rôle et les playbooks
+
+
+# Serveurs Web - Magento
+[webservers]
+magento_server ansible_host=10.0.136.194  # cible1 
+
+
+# Serveurs de base de données - MySQL
+[dbservers]
+mysql_server ansible_host=10.0.143.123    # cible2
+
+# variables pour les hôtes appartenant au groupe webservers
+[webservers:vars]
+ansible_user=datascientest
+ansible_password=Datascientest2022
+
+#variables pour les hôtes appartenant à tous les groupes à moins qu'elles soient surchargées au niveau des groupes ou au niveau des hôtes
+[all:vars]
+ansible_become_pass=Datascientest2022
+ansible_connection=ssh
+
+#[...] sont des groupes logiques permettant de regrouper 1 ou plusieurs serveur de manière clair et compréhensible

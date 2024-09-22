@@ -1,0 +1,13 @@
+#Orchestre le déploiement des applications via des rôles
+#Ces rôles permettent d'installer magento et mysql sur leur VM respectif
+
+---
+- hosts: dbservers
+  become: yes
+  roles:
+    - mysql
+
+- hosts: webservers
+  become: yes
+  roles:
+    - magento

@@ -1,0 +1,9 @@
+# Playbook qui exécute le rôle MySQL dans un environnement de test
+
+---
+- name: Converge
+  hosts: dbservers
+  tasks:
+    - name: "Include MySQL"
+      include_role:  
+        name: "mysql" 

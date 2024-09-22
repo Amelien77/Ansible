@@ -1,0 +1,15 @@
+#Fichier de configuration de Molecule magento définissant l'environnement de test
+
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: instance
+    image: ubuntu:20.04
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible

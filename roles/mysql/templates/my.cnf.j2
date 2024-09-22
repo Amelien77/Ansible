@@ -1,0 +1,14 @@
+[mysqld]
+socket = /var/run/mysqld/mysqld.sock
+port = 3306
+bind-address = 0.0.0.0
+skip-external-locking
+key_buffer_size = 16M
+max_allowed_packet = 1M
+table_open_cache = 64
+thread_cache_size = 8
+sort_buffer_size = 512K
+read_buffer_size = 512K
+read_rnd_buffer_size = 512K
+myisam_sort_buffer_size = 8M
+log_error = /var/log/mysql/error.log

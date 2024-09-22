@@ -1,0 +1,35 @@
+---
+- name: Installer MySQL
+  apt:
+    name: mysql-server
+    state: present
+
+- name: Copier la configuration MySQL
+  template:
+    src: my.cnf.j2
+    dest: /etc/mysql/my.cnf
+
+- name: Vérifier que MySQL est installé
+  command: dpkg -l | grep mysql-server
+  register: mysql_installed
+  ignore_errors: yes
+
+- name: Créer un utilisateur MySQL
+  mysql_user:
+    name: root
+    password: "{{ mysql_root_password }}"
+    host: "%"
+    state: present
+
+- name: Créer une base de données pour Magento
+  mysql_db:
+    name: "{{ magento_db_name }}"
+    state: present
+
+- name: Accorder des privilèges sur la base de données
+  mysql_user:
+    name: root
+    host: "%"
+    password: "{{ mysql_root_password }}"
+    priv: '{{ magento_db_name }}.*:ALL'
+    state: present

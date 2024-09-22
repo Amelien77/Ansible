@@ -1,0 +1,32 @@
+---
+- name: Installer les dépendances de Magento
+  apt:
+    name:
+      - php
+      - php-mysql
+      - php-xml
+      - php-mbstring
+      - php-curl
+      - apache2
+    state: present
+  become: yes
+
+- name: Télécharger Magento
+  unarchive:
+    src: https://example.com/magento-latest.tar.gz
+    dest: /var/www/html/
+    remote_src: yes
+
+- name: Configurer Apache pour Magento
+  template:
+    src: magento.conf.j2
+    dest: /etc/apache2/sites-available/magento.conf
+
+- name: Activer le site Magento
+  command: a2ensite magento
+
+- name: Redémarrer Apache
+  service:
+    name: apache2
+    state: restarted
+  become: yes

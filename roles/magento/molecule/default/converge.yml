@@ -1,0 +1,22 @@
+#Playbook qui execute le role dans un environnement de test
+
+---
+- name: Converge  #nom du playbook
+  hosts: webservers   #cible les hôtes défini dans ce groupe
+  tasks: #taches à effectuer
+    - name: "Include magento"  #nom de la tache
+      include_role: #directive pour inclure un role
+        name: "magento"  #le nom du role
+
+#on vérifie que magento is en fonctionnement
+    - name: "Verify Magento is running"
+      uri:
+        url: "http://{{ ansible_hostname }}/"
+        return_content: yes
+      register: result #on enregistre le résultat dans une variable result
+
+#vérifie que magento est accessible
+    - name: "Check if Magento is accessible"
+      debug:
+        msg: "Magento is accessible"
+      when: "'Magento' in result.content"

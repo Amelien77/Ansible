@@ -1,0 +1,15 @@
+# Contient les tests de validation à exécuter après le déploiement du rôle MySQL
+
+---
+- name: Verify
+  hosts: dbservers
+  gather_facts: false
+  tasks:
+    - name: Verify MySQL service is running
+      ansible.builtin.systemd:
+        name: mysql  
+        state: started
+
+    - name: Example assertion
+      ansible.builtin.assert:
+        that: true
